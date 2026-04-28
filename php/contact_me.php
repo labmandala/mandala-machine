@@ -1,12 +1,12 @@
 <?php
+
 if($_POST)
 {
-	$to_Email   	= "themeguru.envato@gmail.com"; //Replace with recipient email address
-	$subject        = 'Message from website '.$_SERVER['SERVER_NAME']; //Subject line for emails
-	
+	$to_Email   	= 'sarah@mandalamachine.com'; //Replace with recipient email address
+	$subject        = 'Thanks for getting in touch. '.$_SERVER['SERVER_NAME']; //Subject line for emails
 	
 	//check if its an ajax request, exit if not
-    if(!isset($_SERVER['HTTP_X_REQUESTED_WITH']) AND strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest') {
+   if(!isset($_SERVER['HTTP_X_REQUESTED_WITH']) AND strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest') {
 	
 		//exit script outputting json data
 		$output = json_encode(
@@ -51,12 +51,15 @@ if($_POST)
 	}
 	
 	//proceed with PHP email.
-	$headers = 'From: '.$user_Email.'' . "\r\n" .
+	$from_Email = "sarah@mandalamachine.com";
+
+	$headers = 'From: '.$from_Email.'' . "\r\n" .
+	//$headers = 'From: '.$user_Email.'' . "\r\n" .
 	'Reply-To: '.$user_Email.'' . "\r\n" .
 	'X-Mailer: PHP/' . phpversion();
 	
 	$sentMail = @mail($to_Email, $subject, $user_Message . "\r\n\n"  .'-- '.$user_Name. "\r\n" .'-- '.$user_Email, $headers);
-	
+
 	if(!$sentMail)
 	{
 		$output = json_encode(array('type'=>'error', 'text' => 'Could not send mail! Please check your PHP mail configuration.'));
